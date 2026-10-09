@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#020201">
+  <meta name="description" content="Custom 3D-printed goods made layer by layer. Bring your idea to Nova Q. Custom Goods and make it yours.">
+  <title>Nova Q. Custom Goods — Custom 3D Printing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #020201;
+      --white: #fff;
+      --gray: #292929;
+      --blue: #53b8e4;
+      --green: #57b867;
+      --purple: #6b50b5;
+      --violet: #a744b4;
+      --peach: #f2aa75;
+      --coral: #f85c46;
+      --pink: #fa72a5;
+      --yellow: #fde965;
+      --paper: #f7f7f5;
+      --line: rgba(2, 2, 1, .12);
+      --display: "Space Grotesk", sans-serif;
+      --body: "DM Sans", sans-serif;
+      --page: min(1320px, calc(100% - 96px));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--white); color: var(--black); font-family: var(--body); -webkit-font-smoothing: antialiased; }
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    img { display: block; width: 100%; object-fit: cover; }
+    .wrap { width: var(--page); margin-inline: auto; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+    .section-heading { max-width: 750px; margin: 0; font: 600 clamp(42px, 6.3vw, 82px)/.98 var(--display); letter-spacing: -.065em; }
+    .section-intro { max-width: 450px; margin: 20px 0 0; color: #686862; font-size: 16px; line-height: 1.7; }
+    .button { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 22px; border: 1px solid transparent; background: var(--black); color: var(--white); font-size: 13px; font-weight: 700; transition: background .2s ease, color .2s ease, transform .2s ease, border-color .2s ease; cursor: pointer; }
+    .button:hover { transform: translateY(-2px); background: var(--gray); }
+    .button-light { background: var(--white); color: var(--black); }
+    .button-light:hover { background: var(--yellow); color: var(--black); }
+    .button-outline { border-color: rgba(255,255,255,.42); background: transparent; color: var(--white); }
+    .button-outline:hover { border-color: var(--white); background: var(--white); color: var(--black); }
+    .arrow { font-size: 17px; line-height: 1; transition: transform .2s ease; }
+    .button:hover .arrow, .text-link:hover .arrow { transform: translateX(4px); }
+
+    .announcement { min-height: 34px; display: flex; align-items: center; justify-content: center; gap: 7px; background: var(--yellow); color: var(--black); font-size: 11px; font-weight: 700; letter-spacing: .035em; }
+    .announcement a { text-decoration: underline; text-underline-offset: 2px; }
+    .nav-shell { position: sticky; z-index: 10; top: 0; background: rgba(255,255,255,.96); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(2,2,1,.08); }
+    .nav { width: var(--page); height: 76px; display: flex; align-items: center; justify-content: space-between; margin: auto; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; min-width: 212px; font: 700 15px/1.05 var(--display); letter-spacing: -.04em; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--black); color: var(--yellow); font: 700 15px var(--display); }
+    .brand-name small { display: block; margin-top: 4px; font: 600 8px var(--body); letter-spacing: .16em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: clamp(19px, 2.6vw, 38px); }
+    .nav-links a { font-size: 12px; font-weight: 600; transition: color .2s ease; }
+    .nav-links a:hover { color: #368caf; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-shop { min-height: 42px; padding-inline: 18px; background: var(--black); color: var(--white); font-size: 12px; }
+    .menu-toggle { width: 44px; height: 44px; display: none; align-items: center; justify-content: center; border: 0; background: transparent; color: var(--black); cursor: pointer; }
+    .menu-toggle svg { width: 24px; height: 24px; }
+
+    .hero { position: relative; min-height: 660px; overflow: hidden; background: var(--black); color: var(--white); }
+    .hero::before { position: absolute; inset: 0; content: ""; pointer-events: none; background: radial-gradient(ellipse at 77% 30%, rgba(167,68,180,.3), transparent 29%), radial-gradient(ellipse at 58% 85%, rgba(83,184,228,.16), transparent 31%); }
+    .hero-inner { position: relative; width: var(--page); min-height: 660px; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 30px; margin: auto; padding-block: 65px; }
+    .hero-copy { position: relative; z-index: 2; padding-block: 24px; }
+    .hero .eyebrow { color: #c5c5bf; }
+    .hero .eyebrow::before { background: var(--yellow); }
+    .hero h1 { max-width: 710px; margin: 0; font: 600 clamp(68px, 9.2vw, 126px)/.86 var(--display); letter-spacing: -.085em; }
+    .hero h1 span { color: var(--yellow); }
+    .hero-sub { max-width: 395px; margin: 28px 0 30px; color: #c1c1bc; font-size: 16px; line-height: 1.7; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 11px; }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 52px; color: #aaa; font-size: 11px; }
+    .hero-note strong { color: var(--white); font-weight: 600; }
+    .hero-proof { display: flex; align-items: center; gap: 10px; color: #aaa; font-size: 11px; }
+    .hero-proof::before { width: 7px; height: 7px; content: ""; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(87,184,103,.16); }
+    .hero-visual { position: relative; height: 490px; min-width: 0; }
+    .hero-photo { position: absolute; top: 4%; right: 4%; width: 83%; height: 92%; overflow: hidden; background: #514044; }
+    .hero-photo::after { position: absolute; inset: 45% 0 0; content: ""; background: linear-gradient(transparent, rgba(2,2,1,.42)); }
+    .hero-sticker { position: absolute; z-index: 2; top: 10%; left: -1%; width: 112px; height: 112px; display: grid; place-items: center; border-radius: 50%; background: var(--yellow); color: var(--black); text-align: center; font: 700 13px/1.15 var(--display); transform: rotate(-12deg); }
+    .hero-sticker span { display: block; font-size: 21px; }
+    .hero-caption { position: absolute; z-index: 2; right: 10%; bottom: 10%; color: var(--white); font-size: 11px; font-weight: 600; }
+    .hero-caption span { display: block; margin-top: 4px; color: #d4d4d0; font-weight: 400; }
+    .hero-orbit { position: absolute; z-index: 2; right: -3%; bottom: 4%; width: 91px; height: 91px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.48); border-radius: 50%; color: var(--white); font: 500 11px/1.25 var(--display); text-align: center; transform: rotate(9deg); }
+    .hero-orbit::before { position: absolute; inset: -9px; content: ""; border: 1px solid var(--pink); border-radius: 50%; }
+    .hero-side-label { position: absolute; right: -37px; top: 35%; color: rgba(255,255,255,.56); font-size: 9px; letter-spacing: .16em; writing-mode: vertical-rl; text-transform: uppercase; }
+    .media-placeholder { --placeholder-bg: var(--blue); --placeholder-ink: var(--black); position: relative; isolation: isolate; display: grid; place-items: center; min-height: 100%; overflow: hidden; background-color: var(--placeholder-bg); background-image: linear-gradient(rgba(2,2,1,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(2,2,1,.07) 1px, transparent 1px); background-size: 28px 28px; color: var(--placeholder-ink); }
+    .media-placeholder::before { position: absolute; inset: 12px; content: ""; border: 1px solid rgba(2,2,1,.3); pointer-events: none; }
+    .placeholder-purple { --placeholder-bg: var(--purple); --placeholder-ink: var(--white); }
+    .placeholder-pink { --placeholder-bg: var(--pink); }
+    .placeholder-yellow { --placeholder-bg: var(--yellow); }
+    .placeholder-green { --placeholder-bg: var(--green); }
+    .placeholder-peach { --placeholder-bg: var(--peach); }
+    .placeholder-blue { --placeholder-bg: var(--blue); }
+    .placeholder-art { position: relative; z-index: 1; width: 36%; height: 42%; min-width: 92px; display: block; border: 2px solid var(--placeholder-ink); background: repeating-linear-gradient(0deg, transparent 0 8px, rgba(2,2,1,.15) 8px 10px); box-shadow: 12px 12px 0 rgba(2,2,1,.14); transition: transform .35s ease; }
+    .placeholder-art::before, .placeholder-art::after { position: absolute; display: block; content: ""; border: 2px solid var(--placeholder-ink); background: var(--placeholder-bg); }
+    .placeholder-printer .placeholder-art { width: 47%; height: 55%; border-width: 3px 3px 0; background: transparent; box-shadow: none; }
+    .placeholder-printer .placeholder-art::before { left: 12%; right: 12%; bottom: 13%; height: 20%; border-width: 2px 0 0; background: repeating-linear-gradient(90deg, transparent 0 9px, rgba(2,2,1,.18) 9px 11px); }
+    .placeholder-printer .placeholder-art::after { left: 39%; bottom: 34%; width: 22%; height: 29%; border-radius: 45% 45% 18% 18%; background: repeating-linear-gradient(0deg, var(--placeholder-bg) 0 6px, rgba(2,2,1,.24) 6px 8px); }
+    .placeholder-vase .placeholder-art { width: 25%; height: 44%; border-radius: 44% 44% 28% 28%; }
+    .placeholder-gear .placeholder-art { width: 37%; aspect-ratio: 1; height: auto; border: 10px dashed var(--placeholder-ink); border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(2,2,1,.2) 0deg 14deg, transparent 14deg 28deg); }
+    .placeholder-gear .placeholder-art::before { inset: 25%; border-radius: 50%; }
+    .placeholder-gear .placeholder-art::after { inset: 43%; border-radius: 50%; }
+    .placeholder-figure .placeholder-art { width: 25%; height: 43%; border: 0; background: transparent; box-shadow: none; }
+    .placeholder-figure .placeholder-art::before { top: 0; left: 28%; width: 44%; aspect-ratio: 1; border-radius: 50%; }
+    .placeholder-figure .placeholder-art::after { left: 10%; right: 10%; bottom: 0; height: 64%; border-radius: 46% 46% 12% 12%; }
+    .placeholder-parts .placeholder-art { width: 43%; height: 38%; border: 0; background: transparent; box-shadow: none; }
+    .placeholder-parts .placeholder-art::before { left: 0; top: 12%; width: 38%; height: 75%; border-radius: 50% 50% 12% 12%; }
+    .placeholder-parts .placeholder-art::after { right: 0; top: 0; width: 48%; height: 56%; transform: rotate(12deg); }
+    .placeholder-label, .placeholder-index { position: absolute; z-index: 2; left: 25px; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .placeholder-index { top: 24px; }
+    .placeholder-label { bottom: 23px; display: flex; flex-direction: column; gap: 5px; }
+    .placeholder-label strong { font: 700 12px var(--display); }
+    .placeholder-label span { font-size: 9px; font-weight: 500; letter-spacing: .04em; text-transform: none; }
+    .hero-placeholder .placeholder-art { width: 42%; height: 54%; }
+    .hero-placeholder .placeholder-index, .hero-placeholder .placeholder-label { color: var(--white); }
+    .ticker { overflow: hidden; background: var(--yellow); color: var(--black); }
+    .ticker-track { width: max-content; display: flex; align-items: center; gap: 30px; padding: 13px 0; animation: ticker 32s linear infinite; }
+    .ticker span { font: 700 11px var(--display); letter-spacing: .12em; }
+    .ticker b { color: var(--coral); font-size: 16px; }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    .products { padding: 112px 0 118px; }
+    .section-top { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 45px; }
+    .section-top .section-intro { margin-bottom: 5px; }
+    .text-link { display: inline-flex; align-items: center; gap: 10px; flex: 0 0 auto; padding-bottom: 5px; border-bottom: 1px solid var(--black); font-size: 12px; font-weight: 700; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .product-card { min-width: 0; }
+    .product-image { position: relative; display: block; aspect-ratio: 1 / 1.08; overflow: hidden; background: #eeece8; }
+    .product-image .media-placeholder { position: absolute; inset: 0; }
+    .product-card:hover .placeholder-art, .gallery-item:hover .placeholder-art { transform: scale(1.07) rotate(-3deg); }
+    .product-badge { position: absolute; top: 14px; right: 14px; padding: 8px 10px; background: var(--white); font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+    .product-badge.pink { background: var(--pink); }
+    .product-badge.blue { background: var(--blue); }
+    .product-badge.peach { background: var(--peach); }
+    .product-info { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding-top: 17px; }
+    .product-info h3 { margin: 0; font: 600 20px var(--display); letter-spacing: -.04em; }
+    .product-info p { max-width: 260px; margin: 6px 0 0; color: #73736e; font-size: 12px; line-height: 1.6; }
+    .product-price { white-space: nowrap; padding-top: 2px; font-size: 13px; font-weight: 700; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 17px; }
+    .product-footer .text-link { font-size: 11px; }
+    .swatches { display: flex; gap: 6px; }
+    .swatches i { width: 11px; height: 11px; display: block; border: 1px solid rgba(0,0,0,.1); border-radius: 50%; }
+
+    .custom { position: relative; overflow: hidden; padding: 108px 0 112px; background: var(--paper); }
+    .custom::after { position: absolute; right: -105px; top: -170px; width: 390px; height: 390px; content: ""; border: 1px solid rgba(107,80,181,.22); border-radius: 50%; box-shadow: 0 0 0 32px rgba(167,68,180,.035), 0 0 0 75px rgba(83,184,228,.035); pointer-events: none; }
+    .custom-head { position: relative; z-index: 1; max-width: 775px; }
+    .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 68px; border-top: 1px solid var(--line); }
+    .step { position: relative; padding: 25px 30px 0 0; }
+    .step:not(:last-child)::after { position: absolute; top: -4px; right: 28px; width: 7px; height: 7px; content: ""; border-radius: 50%; background: var(--coral); }
+    .step:nth-child(2)::after { background: var(--purple); }
+    .step:nth-child(3)::after { background: var(--green); }
+    .step-number { color: #7f7f79; font: 600 12px var(--display); }
+    .step h3 { margin: 27px 0 9px; font: 600 23px var(--display); letter-spacing: -.04em; }
+    .step p { max-width: 285px; margin: 0; color: #696963; font-size: 13px; line-height: 1.7; }
+    .custom-cta { margin-top: 39px; background: var(--purple); }
+    .custom-cta:hover { background: #5b40a2; }
+
+    .about { padding: 122px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 9%; }
+    .about-visual { position: relative; min-height: 500px; }
+    .about-visual .media-placeholder { position: absolute; inset: 0 10% 8% 0; width: 90%; height: 92%; }
+    .about-stamp { position: absolute; right: 0; bottom: 0; width: 163px; height: 163px; display: grid; place-items: center; border-radius: 50%; background: var(--blue); color: var(--black); font: 700 15px/1.25 var(--display); text-align: center; transform: rotate(9deg); }
+    .about-stamp span { font-size: 25px; }
+    .about-copy .section-heading { max-width: 600px; }
+    .about-copy > p:not(.eyebrow) { max-width: 480px; margin: 22px 0 0; color: #676761; font-size: 15px; line-height: 1.8; }
+    .about-values { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 29px; }
+    .about-values span { padding: 9px 11px; border: 1px solid var(--line); font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .about-values span:nth-child(2) { border-color: var(--pink); }
+    .about-values span:nth-child(3) { border-color: var(--green); }
+    .about-link { margin-top: 32px; }
+
+    .gallery { padding: 112px 0 120px; background: var(--paper); }
+    .gallery .section-top { margin-bottom: 40px; }
+    .gallery-grid { display: grid; grid-template-columns: 1.05fr .8fr 1.05fr; grid-template-rows: 255px 255px; gap: 14px; }
+    .gallery-item { position: relative; overflow: hidden; background: #e8e5e0; }
+    .gallery-item:nth-child(1) { grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-column: 2; grid-row: 2; }
+    .gallery-item:nth-child(5) { grid-column: 3; grid-row: 2; }
+    .gallery-item .media-placeholder { position: absolute; inset: 0; }
+    .gallery-label { position: absolute; left: 13px; bottom: 13px; padding: 8px 10px; background: var(--white); font-size: 9px; font-weight: 700; letter-spacing: .07em; }
+    .gallery-item:nth-child(2) .gallery-label { background: var(--pink); }
+    .gallery-item:nth-child(3) .gallery-label { background: var(--yellow); }
+    .gallery-item:nth-child(4) .gallery-label { background: var(--blue); }
+    .gallery-item:nth-child(5) .gallery-label { background: var(--peach); }
+
+    .statement { position: relative; overflow: hidden; min-height: 465px; display: grid; align-items: center; background: var(--black); color: var(--white); }
+    .statement::before, .statement::after { position: absolute; content: ""; border-radius: 50%; pointer-events: none; }
+    .statement::before { width: 350px; height: 350px; top: -200px; right: 12%; background: rgba(107,80,181,.4); filter: blur(70px); }
+    .statement::after { width: 260px; height: 260px; bottom: -190px; left: 13%; background: rgba(248,92,70,.34); filter: blur(65px); }
+    .statement-inner { position: relative; z-index: 1; width: var(--page); margin: auto; padding-block: 90px; }
+    .statement .eyebrow::before { background: var(--green); }
+    .statement h2 { max-width: 1100px; margin: 0; font: 600 clamp(60px, 10vw, 132px)/.87 var(--display); letter-spacing: -.085em; }
+    .statement h2 span { color: var(--yellow); }
+    .statement-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 34px; }
+    .statement-bottom p { margin: 0; color: #c2c2bc; font-size: 14px; }
+
+    .community { padding: 79px 0; background: var(--purple); color: var(--white); }
+    .community-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 50px; }
+    .community .eyebrow::before { background: var(--yellow); }
+    .community h2 { margin: 0; font: 600 clamp(43px, 5.6vw, 70px)/.94 var(--display); letter-spacing: -.07em; }
+    .community p { max-width: 440px; margin: 16px 0 0; color: rgba(255,255,255,.79); font-size: 14px; line-height: 1.7; }
+    .signup { display: flex; gap: 9px; padding-bottom: 9px; border-bottom: 1px solid rgba(255,255,255,.7); }
+    .signup input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--white); font-size: 14px; }
+    .signup input::placeholder { color: rgba(255,255,255,.74); }
+    .signup button { min-height: 46px; flex: 0 0 auto; padding-inline: 16px; background: var(--yellow); color: var(--black); }
+    .form-note { min-height: 17px; margin: 10px 0 0 !important; color: white !important; font-size: 11px !important; }
+
+    .contact { padding: 118px 0 125px; }
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 11%; }
+    .contact-copy .section-heading { max-width: 500px; }
+    .contact-copy > p:not(.eyebrow) { max-width: 360px; color: #686862; font-size: 14px; line-height: 1.75; }
+    .contact-detail { margin-top: 30px; }
+    .contact-detail span { display: block; margin-bottom: 7px; color: #777; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .contact-detail a { font-size: 14px; font-weight: 600; }
+    .socials { display: flex; gap: 10px; margin-top: 25px; }
+    .socials a { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; font: 700 13px var(--display); transition: color .2s ease, background .2s ease; }
+    .socials a:hover { background: var(--black); color: var(--white); }
+    .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 21px 16px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .field input, .field textarea { width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid #c9c9c4; border-radius: 0; outline: 0; background: transparent; color: var(--black); font-size: 13px; transition: border-color .2s ease; }
+    .field textarea { min-height: 82px; resize: vertical; }
+    .field input:focus, .field textarea:focus { border-color: var(--purple); }
+    .contact-submit { grid-column: 1 / -1; justify-self: start; margin-top: 4px; }
+
+    .footer { padding: 56px 0 25px; background: var(--black); color: var(--white); }
+    .footer-main { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; padding-bottom: 49px; }
+    .footer .brand { min-width: auto; }
+    .footer .brand-mark { background: var(--white); color: var(--black); }
+    .footer-note { max-width: 260px; margin: 18px 0 0; color: #aaa; font-size: 11px; line-height: 1.7; }
+    .footer-links { display: grid; grid-template-columns: repeat(2, minmax(100px, 1fr)); gap: 13px 43px; }
+    .footer-links a { color: #d1d1cc; font-size: 11px; transition: color .2s ease; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.15); color: #92928c; font-size: 10px; }
+    .footer-bottom .socials { margin: 0; }
+    .footer-bottom .socials a { width: 32px; height: 32px; border-color: rgba(255,255,255,.25); color: var(--white); }
+    .footer-bottom .socials a:hover { background: var(--white); color: var(--black); }
+    [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+    .hero-copy[data-reveal], .hero-visual[data-reveal] { opacity: 1; transform: none; }
+
+    @media (max-width: 950px) {
+      :root { --page: min(100% - 56px, 760px); }
+      .brand { min-width: 0; }
+      .nav-links { gap: 17px; }
+      .nav-links a { font-size: 11px; }
+      .hero-inner { grid-template-columns: 1fr .82fr; gap: 10px; }
+      .hero h1 { font-size: clamp(68px, 11vw, 105px); }
+      .hero-visual { height: 420px; }
+      .about-grid { gap: 6%; }
+      .about-visual { min-height: 420px; }
+      .gallery-grid { grid-template-rows: 210px 210px; }
+      .contact-grid { gap: 7%; }
+    }
+    @media (max-width: 720px) {
+      :root { --page: calc(100% - 40px); }
+      html { scroll-padding-top: 72px; }
+      .announcement { min-height: 32px; font-size: 10px; }
+      .nav { height: 66px; }
+      .nav-shop { display: none; }
+      .menu-toggle { display: flex; }
+      .nav-links { position: fixed; inset: 98px 0 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 24px 20px 45px; overflow-y: auto; background: var(--white); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .2s ease, transform .2s ease, visibility .2s ease; }
+      .menu-open .nav-links { opacity: 1; visibility: visible; transform: translateY(0); }
+      .nav-links a { padding: 16px 3px; border-bottom: 1px solid var(--line); font: 600 23px var(--display); letter-spacing: -.04em; }
+      .menu-open .menu-toggle { position: fixed; z-index: 12; top: 35px; right: 16px; }
+      .hero { min-height: auto; }
+      .hero-inner { min-height: auto; grid-template-columns: 1fr; gap: 29px; padding-block: 57px 45px; }
+      .hero-copy { padding: 0; }
+      .hero h1 { max-width: 500px; font-size: clamp(66px, 16vw, 108px); }
+      .hero-sub { max-width: 340px; margin: 21px 0 24px; font-size: 14px; }
+      .hero-note { margin-top: 25px; }
+      .hero-visual { width: 100%; height: min(105vw, 420px); }
+      .hero-photo { right: 5%; width: 83%; height: 94%; }
+      .hero-sticker { top: 8%; left: 0; width: 88px; height: 88px; font-size: 11px; }
+      .hero-sticker span { font-size: 17px; }
+      .hero-caption { right: 12%; bottom: 9%; }
+      .hero-orbit { width: 74px; height: 74px; right: 0; bottom: 3%; font-size: 9px; }
+      .hero-side-label { right: -14px; }
+      .ticker-track { gap: 22px; padding-block: 11px; }
+      .products, .gallery { padding: 77px 0 80px; }
+      .section-heading { font-size: clamp(43px, 11.5vw, 68px); }
+      .section-top { align-items: flex-start; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+      .section-top .section-intro { margin-top: 13px; }
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 25px 13px; }
+      .product-image { aspect-ratio: 1 / 1.14; }
+      .product-info { flex-wrap: wrap; gap: 7px; padding-top: 12px; }
+      .product-info h3 { font-size: 17px; }
+      .product-info p { font-size: 11px; }
+      .product-price { font-size: 12px; }
+      .product-footer { margin-top: 12px; }
+      .product-footer .text-link { font-size: 10px; }
+      .product-badge { top: 9px; right: 9px; padding: 7px 8px; font-size: 8px; }
+      .custom { padding: 78px 0 82px; }
+      .step-grid { grid-template-columns: 1fr; margin-top: 43px; }
+      .step { min-height: 140px; padding: 21px 30px 22px 0; border-bottom: 1px solid var(--line); }
+      .step:not(:last-child)::after { top: 27px; right: 5px; }
+      .step h3 { margin: 16px 0 6px; font-size: 20px; }
+      .step p { font-size: 12px; }
+      .custom-cta { margin-top: 28px; }
+      .about { padding: 80px 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 46px; }
+      .about-visual { min-height: min(110vw, 440px); }
+      .about-visual img { inset: 0 12% 8% 0; width: 88%; height: 92%; }
+      .about-stamp { width: 130px; height: 130px; font-size: 12px; }
+      .about-stamp span { font-size: 21px; }
+      .about-copy > p:not(.eyebrow) { font-size: 14px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 260px 180px 180px; gap: 10px; }
+      .gallery-item:nth-child(1) { grid-column: 1 / -1; grid-row: 1; }
+      .gallery-item:nth-child(2) { grid-column: 1; grid-row: 2; }
+      .gallery-item:nth-child(3) { grid-column: 2; grid-row: 2; }
+      .gallery-item:nth-child(4) { grid-column: 1; grid-row: 3; }
+      .gallery-item:nth-child(5) { grid-column: 2; grid-row: 3; }
+      .gallery-label { left: 8px; bottom: 8px; padding: 7px; font-size: 8px; }
+      .statement { min-height: 400px; }
+      .statement-inner { padding-block: 76px; }
+      .statement h2 { font-size: clamp(60px, 14vw, 96px); }
+      .statement-bottom { align-items: flex-start; flex-direction: column; gap: 22px; }
+      .community { padding: 63px 0; }
+      .community-grid { grid-template-columns: 1fr; gap: 30px; }
+      .community h2 { font-size: 57px; }
+      .contact { padding: 80px 0 85px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 43px; }
+      .contact-form { gap: 19px 12px; }
+      .field label { font-size: 9px; }
+      .footer { padding-top: 43px; }
+      .footer-main { flex-direction: column; gap: 30px; padding-bottom: 33px; }
+      .footer-links { gap: 13px 32px; }
+      .footer-bottom { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 380px) {
+      :root { --page: calc(100% - 32px); }
+      .hero-ctas { align-items: stretch; flex-direction: column; }
+      .hero-ctas .button { width: 100%; }
+      .product-grid { gap: 23px 10px; }
+      .product-info h3 { font-size: 15px; }
+      .product-info p { min-height: 35px; }
+      .signup { align-items: stretch; flex-direction: column; border-bottom: 0; }
+      .signup input { min-height: 44px; border-bottom: 1px solid rgba(255,255,255,.7); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">Custom 3D prints, made one layer at a time. <a href="#custom">Start a custom order <span aria-hidden="true">→</span></a></div>
+  <header class="nav-shell">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Nova Q. Custom Goods home">
+        <span class="brand-mark">Q.</span>
+        <span class="brand-name">Nova Q.<small>Custom Goods</small></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#home">Home</a><a href="#shop">Shop</a><a href="#custom">Custom Orders</a><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="button nav-shop" href="#shop">Shop Now <span class="arrow" aria-hidden="true">→</span></a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path class="menu-line-one" d="M4 7h16"/><path class="menu-line-two" d="M4 12h16"/><path class="menu-line-three" d="M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow">Designed by you. Printed by us.</p>
+          <h1>Made custom.<br>Made <span>yours.</span></h1>
+          <p class="hero-sub">One-of-a-kind 3D-printed pieces, made to your ideas, your colors, and your everyday.</p>
+          <div class="hero-ctas"><a class="button button-light" href="#shop">Shop 3D Prints <span class="arrow" aria-hidden="true">→</span></a><a class="button button-outline" href="#custom">Start a Custom Print <span class="arrow" aria-hidden="true">↗</span></a></div>
+          <div class="hero-note"><span class="hero-proof" aria-hidden="true"></span><span><strong>Small-batch production.</strong> Printed layer by layer.</span></div>
+        </div>
+        <div class="hero-visual" data-reveal>
+          <div class="hero-photo"><div class="media-placeholder hero-placeholder placeholder-purple placeholder-printer" role="img" aria-label="Image placeholder: 3D printer building an object"><span class="placeholder-index">VISUAL 01 / PROCESS</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>3D printer in action</span></span></div></div>
+          <div class="hero-sticker">YOUR IDEA<br><span>+</span><br>3D PRINT</div>
+          <div class="hero-caption">From screen to something real.<span>Made one layer at a time.</span></div>
+          <div class="hero-orbit">100%<br>YOUR<br>DESIGN</div>
+          <span class="hero-side-label">Custom-designed. 3D-printed.</span>
+        </div>
+      </div>
+    </section>
+    <div class="ticker" aria-label="Custom designed, 3D printed, made for you">
+      <div class="ticker-track" aria-hidden="true">
+        <span>CUSTOM DESIGNED</span><b>✳</b><span>3D PRINTED</span><b>✳</b><span>ONE OF ONE</span><b>✳</b><span>MADE LAYER BY LAYER</span><b>✳</b><span>CUSTOM DESIGNED</span><b>✳</b><span>3D PRINTED</span><b>✳</b><span>ONE OF ONE</span><b>✳</b><span>MADE LAYER BY LAYER</span><b>✳</b>
+      </div>
+    </div>
+
+    <section class="products wrap" id="shop">
+      <div class="section-top" data-reveal>
+        <div><p class="eyebrow">Printed in small batches</p><h2 class="section-heading">Made to<br>stand out.</h2><p class="section-intro">Functional, fun, and a little unexpected. Explore our 3D-printed designs, then choose a color to make one yours.</p></div>
+        <a class="text-link" href="#custom">See all the possibilities <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div class="product-grid">
+        <article class="product-card" data-reveal>
+          <a class="product-image" href="#custom" aria-label="Customize the Flexi-Friend Figurine"><span class="media-placeholder placeholder-yellow placeholder-figure" role="img" aria-label="Image placeholder: Flexi-Friend Figurine"><span class="placeholder-index">PRODUCT 01 / FIGURINE</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Flexi-Friend Figurine</span></span></span><span class="product-badge pink">Made to order</span></a>
+          <div class="product-info"><div><h3>Flexi-Friend Figurine</h3><p>A playful little print. Choose your favorite filament color.</p></div><span class="product-price">$18+</span></div>
+          <div class="product-footer"><div class="swatches" aria-label="Available colors"><i style="background:#f8f7f1"></i><i style="background:#292929"></i><i style="background:#f2aa75"></i><i style="background:#53b8e4"></i></div><a class="text-link" href="#custom">View product <span class="arrow" aria-hidden="true">→</span></a></div>
+        </article>
+        <article class="product-card" data-reveal>
+          <a class="product-image" href="#custom" aria-label="Customize the Precision Gear Fidget"><span class="media-placeholder placeholder-blue placeholder-gear" role="img" aria-label="Image placeholder: Precision Gear Fidget"><span class="placeholder-index">PRODUCT 02 / MECHANISM</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Precision Gear Fidget</span></span></span><span class="product-badge blue">Customizable</span></a>
+          <div class="product-info"><div><h3>Precision Gear Fidget</h3><p>Satisfying moving parts, printed in your pick of playful colors.</p></div><span class="product-price">$22+</span></div>
+          <div class="product-footer"><div class="swatches" aria-label="Available colors"><i style="background:#f8f7f1"></i><i style="background:#f85c46"></i><i style="background:#6b50b5"></i><i style="background:#57b867"></i></div><a class="text-link" href="#custom">View product <span class="arrow" aria-hidden="true">→</span></a></div>
+        </article>
+        <article class="product-card" data-reveal>
+          <a class="product-image" href="#custom" aria-label="Customize the Color Pop Print Set"><span class="media-placeholder placeholder-peach placeholder-parts" role="img" aria-label="Image placeholder: Color Pop Print Set"><span class="placeholder-index">PRODUCT 03 / PRINT SET</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Color Pop Print Set</span></span></span><span class="product-badge peach">Made for you</span></a>
+          <div class="product-info"><div><h3>Color Pop Print Set</h3><p>A small collection of custom-printed desk and shelf companions.</p></div><span class="product-price">$24+</span></div>
+          <div class="product-footer"><div class="swatches" aria-label="Available colors"><i style="background:#f2aa75"></i><i style="background:#292929"></i><i style="background:#fde965"></i><i style="background:#fa72a5"></i></div><a class="text-link" href="#custom">View product <span class="arrow" aria-hidden="true">→</span></a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="custom" id="custom">
+      <div class="wrap">
+        <div class="custom-head" data-reveal><p class="eyebrow">From first sketch to finished print</p><h2 class="section-heading">Your idea.<br>Your style. Your custom.</h2><p class="section-intro">Have a model or just an idea? We’ll work with you to create a design and turn it into a one-of-a-kind 3D print.</p></div>
+        <div class="step-grid">
+          <article class="step" data-reveal><span class="step-number">01 — TELL US THE IDEA</span><h3>Share your concept</h3><p>Send a sketch, a reference, or a 3D file. We’ll help shape the idea into a printable design.</p></article>
+          <article class="step" data-reveal><span class="step-number">02 — DESIGN & PRINT</span><h3>We make it real</h3><p>We prepare your design, choose the right print settings, and build it layer by layer.</p></article>
+          <article class="step" data-reveal><span class="step-number">03 — MADE FOR YOU</span><h3>Pick it up or ship</h3><p>Approve the details, choose your finish, and get your custom 3D print in hand.</p></article>
+        </div>
+        <a class="button custom-cta" href="#contact">Start Your Custom Order <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="about wrap" id="about">
+      <div class="about-grid">
+        <div class="about-visual" data-reveal><div class="media-placeholder placeholder-pink placeholder-parts" role="img" aria-label="Image placeholder: custom 3D-printed objects"><span class="placeholder-index">STUDIO / CUSTOM BUILDS</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Custom objects, fresh off the print bed</span></span></div><div class="about-stamp">PRINTED<br>ONE LAYER<br><span>✳</span></div></div>
+        <div class="about-copy" data-reveal><p class="eyebrow">Hey, we’re Nova Q.</p><h2 class="section-heading">Why buy ordinary?</h2><p>We’re a small creative studio with a soft spot for turning good ideas into real, useful, delightfully weird things. With 3D printing, a sketch or a thought can become an object made just for you.</p><p>We care about the little details: the shape, the feel, the color, and those tiny print lines that tell you it was made layer by layer, not pulled off a shelf.</p><div class="about-values"><span>Designed with care</span><span>Printed to order</span><span>Made a little different</span></div><a class="text-link about-link" href="#contact">A little more about us <span class="arrow" aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="wrap">
+        <div class="section-top" data-reveal><div><p class="eyebrow">Fresh off the print bed</p><h2 class="section-heading">Good things,<br>made personal.</h2></div><a class="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <span class="arrow" aria-hidden="true">↗</span></a></div>
+        <div class="gallery-grid">
+          <a class="gallery-item" href="#contact"><span class="media-placeholder placeholder-blue placeholder-printer" role="img" aria-label="Image placeholder: 3D printer at work"><span class="placeholder-index">SHOWCASE / 01</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Printer at work</span></span></span><span class="gallery-label">MADE FOR YOU</span></a>
+          <a class="gallery-item" href="#contact"><span class="media-placeholder placeholder-yellow placeholder-gear" role="img" aria-label="Image placeholder: 3D-printed gear"><span class="placeholder-index">SHOWCASE / 02</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Moving parts</span></span></span><span class="gallery-label">ONE OF ONE</span></a>
+          <a class="gallery-item" href="#contact"><span class="media-placeholder placeholder-green placeholder-figure" role="img" aria-label="Image placeholder: custom figurine"><span class="placeholder-index">SHOWCASE / 03</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Custom figurine</span></span></span><span class="gallery-label">PERSONALIZED</span></a>
+          <a class="gallery-item" href="#contact"><span class="media-placeholder placeholder-peach placeholder-printer" role="img" aria-label="Image placeholder: print in progress"><span class="placeholder-index">SHOWCASE / 04</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Layer by layer</span></span></span><span class="gallery-label">LAYER BY LAYER</span></a>
+          <a class="gallery-item" href="#contact"><span class="media-placeholder placeholder-purple placeholder-parts" role="img" aria-label="Image placeholder: small-batch printed objects"><span class="placeholder-index">SHOWCASE / 05</span><span class="placeholder-art" aria-hidden="true"></span><span class="placeholder-label"><strong>IMAGE PLACEHOLDER</strong><span>Small-batch objects</span></span></span><span class="gallery-label">CUSTOM</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="statement">
+      <div class="statement-inner" data-reveal><p class="eyebrow">Permission to be a little extra</p><h2>DON’T SETTLE<br>FOR <span>ORDINARY.</span></h2><div class="statement-bottom"><p>Create something that’s unmistakably yours.</p><a class="button button-light" href="#contact">Create Something Custom <span class="arrow" aria-hidden="true">→</span></a></div></div>
+    </section>
+
+    <section class="community">
+      <div class="wrap community-grid"><div data-reveal><p class="eyebrow">The occasional good email</p><h2>Stay in the loop.</h2><p>Get new print drops, behind-the-scenes process, custom inspiration, and special offers.</p></div><div data-reveal><form class="signup" id="newsletter-form"><label class="field" style="flex:1"><span class="visually-hidden" style="position:absolute;clip:rect(0,0,0,0)">Email address</span><input type="email" name="newsletter-email" placeholder="Your email address" autocomplete="email" required></label><button class="button" type="submit">Join the Q. <span class="arrow" aria-hidden="true">→</span></button></form><p class="form-note" id="newsletter-note" aria-live="polite">No spam, ever. Just the good stuff.</p></div></div>
+    </section>
+
+    <section class="contact wrap" id="contact">
+      <div class="contact-grid">
+        <div class="contact-copy" data-reveal><p class="eyebrow">Let’s print a thing</p><h2 class="section-heading">Something on your mind?</h2><p>Have an idea, a 3D file, or a question about a custom print? Tell us what you’re dreaming up and we’ll take it from there.</p><div class="contact-detail"><span>Send a note</span><a href="mailto:hello@novaqcustomgoods.com">hello@novaqcustomgoods.com</a></div><div class="socials" aria-label="Social media"><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a><a href="https://www.tiktok.com/" target="_blank" rel="noreferrer" aria-label="TikTok">tk</a><a href="https://www.pinterest.com/" target="_blank" rel="noreferrer" aria-label="Pinterest">p</a></div></div>
+        <form class="contact-form" id="contact-form" data-reveal>
+          <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" placeholder="The name your friends use" required></div>
+          <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+          <div class="field"><label for="phone">Phone <span style="font-weight:400;text-transform:none">(optional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 000-0000"></div>
+          <div class="field"><label for="project">What can we print?</label><input id="project" name="project" placeholder="A custom part, a gift, a big idea..." required></div>
+          <div class="field full"><label for="message">Tell us a little more</label><textarea id="message" name="message" placeholder="Share your idea, dimensions, colors, or 3D file details." required></textarea></div>
+          <button class="button contact-submit" type="submit">Send your note <span class="arrow" aria-hidden="true">→</span></button><p class="form-note" id="contact-note" aria-live="polite" style="grid-column:1/-1;margin:0"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-main"><div><a class="brand" href="#home"><span class="brand-mark">Q.</span><span class="brand-name">Nova Q.<small>Custom Goods</small></span></a><p class="footer-note">Custom 3D prints, made layer by layer.<br>Designed with you. Printed by Nova Q.</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="#shop">Shop</a><a href="#custom">Custom Orders</a><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a><a href="#contact">FAQ</a><a href="#contact">Privacy Policy</a><a href="#contact">Terms</a></nav></div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Nova Q. Custom Goods. Made with a little extra.</span><div class="socials" aria-label="Social media"><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a><a href="https://www.tiktok.com/" target="_blank" rel="noreferrer" aria-label="TikTok">tk</a><a href="https://www.pinterest.com/" target="_blank" rel="noreferrer" aria-label="Pinterest">p</a></div></div>
+    </div>
+  </footer>
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navigation = document.querySelector('.nav-links');
+
+    function closeMenu() {
+      document.body.classList.remove('menu-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open navigation menu');
+    }
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = document.body.classList.toggle('menu-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    });
+    navigation.addEventListener('click', event => {
+      if (event.target.closest('a')) closeMenu();
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 720) closeMenu();
+    });
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(element => revealObserver.observe(element));
+
+    document.querySelector('#newsletter-form').addEventListener('submit', event => {
+      event.preventDefault();
+      document.querySelector('#newsletter-note').textContent = 'You’re on the list. Fresh prints are headed your way.';
+      event.currentTarget.reset();
+    });
+    document.querySelector('#contact-form').addEventListener('submit', event => {
+      event.preventDefault();
+      document.querySelector('#contact-note').textContent = 'Thanks for the note. We can’t wait to hear what you’d like us to print.';
+      event.currentTarget.reset();
+    });
+    document.querySelector('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
